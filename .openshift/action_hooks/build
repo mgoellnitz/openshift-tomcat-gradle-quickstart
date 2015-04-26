@@ -8,11 +8,11 @@ DIR=`pwd`
 
 # obtain tomcat
 export TOMCAT_VERSION=7.0.61
-if [ ! -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.zip ] ; then
+if [ ! -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz ] ; then
   cd $OPENSHIFT_DATA_DIR
-  wget http://apache.openmirror.de/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.zip
+  wget http://apache.openmirror.de/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
   rm -rf tomcat
-  unzip $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.zip
+  tar xvzf $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz
   mv apache-tomcat-${TOMCAT_VERSION} tomcat
 fi
 
