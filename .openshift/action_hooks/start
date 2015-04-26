@@ -1,9 +1,9 @@
 #!/bin/bash
 # .openshift/action_hooks/start:
 set -x
-rsync -r --delete --exclude ".*" ${OPENSHIFT_REPO_DIR}/tomcat/conf/ ${OPENSHIFT_DATA_DIR}/tomcat/conf/
-rsync -r --delete --exclude ".*" ${OPENSHIFT_REPO_DIR}/tomcat/lib/ ${OPENSHIFT_DATA_DIR}/tomcat/lib/
-rsync -r --delete --exclude ".*" ${OPENSHIFT_REPO_DIR}/tomcat/webapps/ ${OPENSHIFT_DATA_DIR}/tomcat/webapps/
+cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/conf/* ${OPENSHIFT_DATA_DIR}/tomcat/conf/
+cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/lib/* ${OPENSHIFT_DATA_DIR}/tomcat/lib/
+cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/webapps/* ${OPENSHIFT_DATA_DIR}/tomcat/webapps/
 cd $OPENSHIFT_DATA_DIR/tomcat
 sed -ig 's/OPENSHIFT_DIY_IP/'$OPENSHIFT_DIY_IP'/g' conf/server.xml
 sed -ig 's/OPENSHIFT_APP_DNS/'$OPENSHIFT_APP_DNS'/' conf/server.xml
