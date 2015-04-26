@@ -152,8 +152,10 @@
                resourceName="UserDatabase"/>
       </Realm>
 
-      <Host name="www.provocon.eu"  appBase="webapps"
+<!--
+      <Host name="example.org"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
+-->
 
         <!-- Access log processes all example.
              Documentation at: /docs/config/valve.html
