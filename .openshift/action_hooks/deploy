@@ -1,0 +1,20 @@
+#!/bin/bash
+# .openshift/action_hooks/deploy:
+
+set -x
+if [ -d $OPENSHIFT_DATA_DIR/tomcat ]
+then
+    exit 0
+else
+    cp -rf $OPENSHIFT_REPO_DIR/diy/tomcat $OPENSHIFT_DATA_DIR
+    cd $OPENSHIFT_DATA_DIR/tomcat
+    rm -rf logs
+    ln -s $OPENSHIFT_LOG_DIR logs
+fi
+
+# Addition:
+for i in `ls $OPENSHIFT_DATA_DIR/tomcat/webapps/*.war`; do
+  dn=`basename $i .war`
+  echo "removing $dn"
+  rm -rf $OPENSHIFT_DATA_DIR/tomcat/webapps/$dn
+done

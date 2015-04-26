@@ -1,10 +1,15 @@
 #!/bin/bash
+# .openshift/action_hooks/stop:
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 # The logic to stop your application should be put in this script.
-if [ -z "$(ps -ef | grep testrubyserver.rb | grep -v grep)" ]
-then
-    client_result "Application is already stopped"
+if [ -z "$(ps -efww | grep tomcat | grep -v grep)" ] ; then
+    client_result "Tomcat is already stopped"
 else
-    kill `ps -ef | grep testrubyserver.rb | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+  if [ -x $OPENSHIFT_DATA_DIR/tomcat/bin/shutdown.sh ] ; then
+    $OPENSHIFT_DATA_DIR/tomcat/bin/shutdown.sh
+  else 
+    kill `ps -efww | grep tomcat | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+  fi
 fi
+exit 0

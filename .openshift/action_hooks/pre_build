@@ -1,0 +1,8 @@
+#!/bin/bash
+# .openshift/action_hooks/pre_build:
+
+# gradle storage dir build
+set -x
+if [ ! -d $OPENSHIFT_DATA_DIR/gradle ] ; then
+    mkdir $OPENSHIFT_DATA_DIR/gradle
+fi

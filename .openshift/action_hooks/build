@@ -1,0 +1,36 @@
+#!/bin/bash
+# .openshift/action_hooks/build:
+
+# gradle build
+set -x
+
+DIR=`pwd`
+
+# obtain tomcat
+export TOMCAT_VERSION=7.0.61
+if [ ! -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.zip ] ; then
+  cd $OPENSHIFT_DATA_DIR
+  wget http://apache.openmirror.de/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.zip
+  rm -rf tomcat
+  unzip $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.zip
+  mv apache-tomcat-${TOMCAT_VERSION} tomcat
+fi
+
+# obtain gradle
+export GRADLE_VERSION=2.2.1
+if [ ! -d $OPENSHIFT_DATA_DIR/gradle-${GRADLE_VERSION} ] ; then
+  cd $OPENSHIFT_DATA_DIR
+  wget http://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
+  unzip gradle-${GRADLE_VERSION}-bin.zip
+  rm -f gradle-${GRADLE_VERSION}-bin.zip
+fi
+
+cd $DIR
+
+cd $OPENSHIFT_REPO_DIR
+export GRADLE_USER_HOME=${OPENSHIFT_DATA_DIR}gradle
+export GRADLE_HOME=${OPENSHIFT_DATA_DIR}gradle-${GRADLE_VERSION}
+export PATH=$GRADLE_HOME/bin:$PATH
+if [ -f openshift-build.gradle ] ; then
+  gradle --stacktrace -b build.gradle clean build
+fi
