@@ -6,6 +6,5 @@ set -x
 # Addition:
 for i in `ls $OPENSHIFT_DATA_DIR/tomcat/webapps/*.war`; do
   dn=`basename $i .war`
-  echo "removing $dn"
   rm -rf $OPENSHIFT_DATA_DIR/tomcat/webapps/$dn
 done
