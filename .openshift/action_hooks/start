@@ -3,7 +3,7 @@
 set -x
 
 echo "Start"
-for i in `ls $OPENSHIFT_DATA_DIR/tomcat/webapps/*.war`; do
+for i in `ls $OPENSHIFT_REPO_DIR/tomcat/webapps/*.war`; do
   dn=`basename $i .war`
   rm -rf $OPENSHIFT_DATA_DIR/tomcat/webapps/$dn
 done
