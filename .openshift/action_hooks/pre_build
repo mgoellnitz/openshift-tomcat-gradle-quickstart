@@ -3,6 +3,8 @@
 
 # gradle storage dir build
 set -x
+
+echo "Pre build"
 if [ ! -d $OPENSHIFT_DATA_DIR/gradle ] ; then
     mkdir $OPENSHIFT_DATA_DIR/gradle
 fi

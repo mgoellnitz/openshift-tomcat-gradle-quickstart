@@ -2,6 +2,7 @@
 # .openshift/action_hooks/stop:
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
+echo "Stop"
 # The logic to stop your application should be put in this script.
 if [ -z "$(ps -efww | grep tomcat | grep -v grep)" ] ; then
     client_result "Tomcat is already stopped"

@@ -4,6 +4,7 @@
 # gradle build
 set -x
 
+echo "Build"
 DIR=`pwd`
 cd $OPENSHIFT_DATA_DIR
 

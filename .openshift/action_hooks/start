@@ -1,6 +1,8 @@
 #!/bin/bash
 # .openshift/action_hooks/start:
 set -x
+
+echo "Start"
 cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/conf/* ${OPENSHIFT_DATA_DIR}/tomcat/conf/
 cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/lib/* ${OPENSHIFT_DATA_DIR}/tomcat/lib/
 cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/webapps/* ${OPENSHIFT_DATA_DIR}/tomcat/webapps/

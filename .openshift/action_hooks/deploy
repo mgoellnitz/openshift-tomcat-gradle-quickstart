@@ -3,6 +3,7 @@
 
 set -x
 
+echo "Deploying"
 # Addition:
 for i in `ls $OPENSHIFT_DATA_DIR/tomcat/webapps/*.war`; do
   dn=`basename $i .war`
