@@ -27,7 +27,7 @@ if [ -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz ] ; then
 fi
 
 # obtain gradle
-export GRADLE_VERSION=2.8
+export GRADLE_VERSION=2.9
 if [ ! -d $OPENSHIFT_DATA_DIR/gradle-${GRADLE_VERSION} ] ; then
   wget http://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
   unzip gradle-${GRADLE_VERSION}-bin.zip
