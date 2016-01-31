@@ -9,7 +9,7 @@ DIR=`pwd`
 cd $OPENSHIFT_DATA_DIR
 
 # obtain tomcat
-export TOMCAT_VERSION=7.0.65
+export TOMCAT_VERSION=7.0.67
 if [ ! -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz ] ; then
   wget http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 fi
@@ -27,7 +27,7 @@ if [ -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz ] ; then
 fi
 
 # obtain gradle
-export GRADLE_VERSION=2.9
+export GRADLE_VERSION=2.10
 if [ ! -d $OPENSHIFT_DATA_DIR/gradle-${GRADLE_VERSION} ] ; then
   wget http://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
   unzip gradle-${GRADLE_VERSION}-bin.zip
