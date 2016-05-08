@@ -3,14 +3,11 @@
 set -x
 
 echo "Start"
-for i in `ls $OPENSHIFT_REPO_DIR/tomcat/webapps/*.war`; do
-  dn=`basename $i .war`
-  rm -rf $OPENSHIFT_DATA_DIR/tomcat/webapps/$dn
-done
-cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/conf/* ${OPENSHIFT_DATA_DIR}/tomcat/conf/
-cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/lib/* ${OPENSHIFT_DATA_DIR}/tomcat/lib/
-cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/webapps/* ${OPENSHIFT_DATA_DIR}/tomcat/webapps/
+JAVA_VERSION=1.8.0
+JAVA_HOME=`find /usr/lib/jvm -name "$JAVA_VERSION"`
+if [ -z JAVA_HOME ] ; then
+  echo "INTENDED JAVA VERSION NOT FOUND!"
+fi  
 cd $OPENSHIFT_DATA_DIR/tomcat
-sed -ig 's/OPENSHIFT_DIY_IP/'$OPENSHIFT_DIY_IP'/g' conf/server.xml
-sed -ig 's/OPENSHIFT_APP_DNS/'$OPENSHIFT_APP_DNS'/' conf/server.xml
 bin/startup.sh
+

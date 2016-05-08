@@ -4,3 +4,33 @@
 set -x
 
 echo "Deploying"
+DIR=`pwd`
+cd $OPENSHIFT_DATA_DIR
+# obtain tomcat
+export TOMCAT_VERSION=7.0.69
+if [ ! -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz ] ; then
+  wget http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+fi
+if [ -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz ] ; then
+  rm -rf tomcat
+  tar xzf $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+  mv apache-tomcat-${TOMCAT_VERSION} tomcat
+  cd $OPENSHIFT_DATA_DIR/tomcat
+  rm -rf $OPENSHIFT_DATA_DIR/tomcat/webapps/docs
+  rm -rf $OPENSHIFT_DATA_DIR/tomcat/webapps/examples
+  rm -rf logs
+  ln -s $OPENSHIFT_LOG_DIR logs
+  rm -rf $OPENSHIFT_LOG_DIR/*
+fi
+cd $DIR
+# prepare tomcat
+for i in `ls $OPENSHIFT_REPO_DIR/tomcat/webapps/*.war`; do
+  dn=`basename $i .war`
+  rm -rf $OPENSHIFT_DATA_DIR/tomcat/webapps/$dn
+done
+cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/conf/* ${OPENSHIFT_DATA_DIR}/tomcat/conf/
+cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/lib/* ${OPENSHIFT_DATA_DIR}/tomcat/lib/
+cp -rdp ${OPENSHIFT_REPO_DIR}/tomcat/webapps/* ${OPENSHIFT_DATA_DIR}/tomcat/webapps/
+cd $OPENSHIFT_DATA_DIR/tomcat
+sed -ig 's/OPENSHIFT_DIY_IP/'$OPENSHIFT_DIY_IP'/g' conf/server.xml
+sed -ig 's/OPENSHIFT_APP_DNS/'$OPENSHIFT_APP_DNS'/' conf/server.xml

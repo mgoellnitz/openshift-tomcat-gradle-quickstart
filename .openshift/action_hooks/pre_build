@@ -5,6 +5,17 @@
 set -x
 
 echo "Pre build"
+DIR=`pwd`
+cd $OPENSHIFT_DATA_DIR
+# obtain gradle
+export GRADLE_VERSION=2.13
+if [ ! -d $OPENSHIFT_DATA_DIR/gradle-${GRADLE_VERSION} ] ; then
+  wget http://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
+  unzip gradle-${GRADLE_VERSION}-bin.zip
+  rm -f gradle-${GRADLE_VERSION}-bin.zip
+fi
+# prepare gradle dir
 if [ ! -d $OPENSHIFT_DATA_DIR/gradle ] ; then
     mkdir $OPENSHIFT_DATA_DIR/gradle
 fi
+cd $DIR
