@@ -3,7 +3,7 @@
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 JAVA_VERSION=1.8.0
-JAVA_HOME=`find /usr/lib/jvm -name "$JAVA_VERSION"`
+export JAVA_HOME=`find /usr/lib/jvm -name "$JAVA_VERSION"`
 if [ -z JAVA_HOME ] ; then
   echo "INTENDED JAVA VERSION NOT FOUND!"
 fi  
