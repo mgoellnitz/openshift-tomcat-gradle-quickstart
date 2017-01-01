@@ -7,7 +7,7 @@ echo "Deploying"
 DIR=`pwd`
 cd $OPENSHIFT_DATA_DIR
 # obtain tomcat
-export TOMCAT_VERSION=8.0.38
+export TOMCAT_VERSION=8.0.39
 if [ ! -f $OPENSHIFT_DATA_DIR/apache-tomcat-${TOMCAT_VERSION}.tar.gz ] ; then
   wget http://archive.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 fi
